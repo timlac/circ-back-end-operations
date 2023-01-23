@@ -11,11 +11,11 @@ def handler(event, context):
         table_name = os.environ["DYNAMODB_TABLE"]
         table = dynamodb.Table(table_name)
 
-        # Get the 'alias', 'filename', and 'new_status' from the request body
+        # Get the 'alias', 'filename', and 'processed_status' from the request body
         body = json.loads(event["body"])
         alias = body["alias"]
         filename = body["filename"]
-        new_status = body["new_status"]
+        processed_status = body["processed_status"]
 
         # Update the item in the table
         table.update_item(
@@ -25,7 +25,7 @@ def handler(event, context):
             },
             UpdateExpression="SET processed_status = :s",
             ExpressionAttributeValues={
-                ":s": int(new_status)
+                ":s": int(processed_status)
             },
             ReturnValues="UPDATED_NEW"
         )
