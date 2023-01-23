@@ -1,12 +1,20 @@
 import json
 import boto3
 import os
+from decimal import Decimal
+
 
 # Connect to DynamoDB
 dynamodb = boto3.resource('dynamodb')
 
 
-def lambda_handler(event, context):
+def to_serializable(val):
+    if isinstance(val, Decimal):
+        return str(val)
+    return val
+
+
+def handler(event, context):
     try:
         table_name = os.environ["DYNAMODB_TABLE"]
         table = dynamodb.Table(table_name)
@@ -19,7 +27,7 @@ def lambda_handler(event, context):
         response = table.query(
             KeyConditionExpression='example_number = :ex and valence = :v',
             ExpressionAttributeValues={
-                ':ex': example_number,
+                ':ex': int(example_number),
                 ':v': valence
             }
         )
@@ -27,11 +35,10 @@ def lambda_handler(event, context):
         # Return the query result
         return {
             "statusCode": 200,
-            "body": json.dumps(response['Items'])
+            "body": json.dumps(response['Items'], default=to_serializable)
         }
     except Exception as e:
         return {
             "statusCode": 500,
             "body": str(e)
         }
-    

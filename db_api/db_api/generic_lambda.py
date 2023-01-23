@@ -6,7 +6,7 @@ from aws_cdk import (
 )
 
 
-class QueryProcessedIndex(Construct):
+class LambdaWithDBPermissions(Construct):
 
     def __init__(self, scope: Construct, id: str, handler: str, db_table: str):
         super().__init__(scope, id)
