@@ -1,6 +1,6 @@
-from back_end.config import emotion_abr_to_emotion_id, emotion_id_to_valence
-from back_end.helpers import get_digits_only, name2list, get_filename
-from back_end.metadata.error_file_exception import ErrorFileException
+from config import emotion_abr_to_emotion_id, emotion_id_to_valence
+from helpers import get_digits_only, name2list, get_filename
+from metadata.error_file_exception import ErrorFileException
 
 
 class Metadata(object):

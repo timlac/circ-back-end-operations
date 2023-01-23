@@ -6,9 +6,9 @@ import os
 from botocore.exceptions import ClientError
 
 from config import s3_bucket_name
-from back_end.metadata.error_file_exception import ErrorFileException
-from back_end.metadata.file_metadata import Metadata
-from back_end.helpers import get_filename
+from metadata.error_file_exception import ErrorFileException
+from metadata.file_metadata import Metadata
+from helpers import get_filename
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
