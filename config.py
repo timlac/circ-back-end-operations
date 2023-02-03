@@ -1,7 +1,10 @@
 import json
 import os
 
-ROOT_DIR = "/home/tim/work/su-thesis-project/validation-project-react"
+experiment_table_name = "video_validation_experiment"
+example_table_name = "example_videos"
+
+ROOT_DIR = "/home/tim/work/su-thesis-project/video-validation-back-end"
 
 s3_bucket_name = "validation-experiment-video-files-01"
 

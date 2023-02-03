@@ -16,6 +16,7 @@ def handler(event, context):
         alias = body["alias"]
         filename = body["filename"]
         processed_status = body["processed_status"]
+        emotion_id_reply = body["emotion_id_reply"]
 
         # Update the item in the table
         table.update_item(
@@ -23,9 +24,11 @@ def handler(event, context):
                 "alias": alias,
                 "filename": filename
             },
-            UpdateExpression="SET processed_status = :s",
+            UpdateExpression="SET processed_status = :s, emotion_id_reply = :e",
             ExpressionAttributeValues={
-                ":s": int(processed_status)
+                ":s": int(processed_status),
+                ":e": emotion_id_reply
+
             },
             ReturnValues="UPDATED_NEW"
         )
@@ -33,6 +36,9 @@ def handler(event, context):
         # Return a success message
         return {
             "statusCode": 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
             "body": json.dumps({"message": "Item with filename {} updated successfully".format(filename)})
         }
     except Exception as e:

@@ -1,19 +1,13 @@
 import json
 import boto3
 import os
-from decimal import Decimal
+
+from serializer import to_serializable
 
 dynamodb = boto3.resource("dynamodb")
 
 
-def to_serializable(val):
-    if isinstance(val, Decimal):
-        return str(val)
-    return val
-
-
 def handler(event, context):
-
     try:
 
         table_name = os.environ["DYNAMODB_TABLE"]
@@ -37,6 +31,9 @@ def handler(event, context):
         # Return the items in the response
         return {
             "statusCode": 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
             "body": json.dumps(items, default=to_serializable)
         }
     except Exception as e:

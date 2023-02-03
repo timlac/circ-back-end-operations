@@ -1,5 +1,5 @@
-import json
 import boto3
+import json
 import os
 
 from serializer import to_serializable
@@ -13,17 +13,13 @@ def handler(event, context):
         table_name = os.environ["DYNAMODB_TABLE"]
         table = dynamodb.Table(table_name)
 
-        # Get query parameters from the event
-        example_number = event['queryStringParameters']['example_number']
-        valence = event['queryStringParameters']['valence']
+        # Get the partition key value from the event
+        partition_key_value = event['queryStringParameters']['alias']
 
-        # Query the table
+        # Query the table using the partition key
         response = table.query(
-            KeyConditionExpression='example_number = :ex and valence = :v',
-            ExpressionAttributeValues={
-                ':ex': int(example_number),
-                ':v': valence
-            }
+            KeyConditionExpression='alias = :alias_val',
+            ExpressionAttributeValues={':alias_val': partition_key_value}
         )
 
         # Return the query result

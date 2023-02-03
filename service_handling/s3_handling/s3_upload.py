@@ -6,15 +6,15 @@ import os
 from botocore.exceptions import ClientError
 
 from config import s3_bucket_name
-from metadata.error_file_exception import ErrorFileException
-from metadata.file_metadata import Metadata
-from helpers import get_filename
+from service_handling.metadata.error_file_exception import ErrorFileException
+from service_handling.metadata.file_metadata import Metadata
+from service_handling.helpers import get_filename
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 def get_file_paths(path):
-    paths = glob(path + '**/*.mov')
+    paths = glob(path + '**/*.mp4')
     logging.info("Files found:" + str(len(paths)))
     return paths
 
@@ -72,12 +72,8 @@ def process_files(directory):
 
     for filepath in paths:
         try:
-            print(filepath)
             filename = get_filename(filepath)
             metadata = Metadata(filename)
-            print()
-            print(vars(metadata))
-            break
 
             if not metadata.mix:
                 file_name = os.path.basename(filepath)
@@ -87,12 +83,12 @@ def process_files(directory):
                 else:
                     logging.info("uploading file: " + str(file_name))
                     # Upload the file to S3
-                    # uploader.upload(filepath, file_name)
+                    uploader.upload(filepath, file_name)
 
         except ErrorFileException as e:
             logging.info(e)
             continue
 
 
-path = "/home/tim/work/su-thesis-project/resources/videos/"
+path = "/home/tim/work/su-thesis-project/resources/videos/AAC_clips"
 process_files(path)
