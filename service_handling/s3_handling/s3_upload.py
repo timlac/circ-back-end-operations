@@ -4,11 +4,12 @@ import logging
 import sys
 import os
 from botocore.exceptions import ClientError
+from dotenv import load_dotenv
 
-from config import s3_bucket_name
-from service_handling.metadata.error_file_exception import ErrorFileException
-from service_handling.metadata.file_metadata import Metadata
-from service_handling.helpers import get_filename
+
+from metadata.error_file_exception import ErrorFileException
+from metadata.file_metadata import Metadata
+from helpers import get_filename
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
@@ -25,6 +26,8 @@ class s3Uploader:
     """
 
     def __init__(self):
+        load_dotenv()
+        s3_bucket_name = os.environ.get("S3_BUCKET_NAME")
         # Set the name of the bucket and the file you want to upload
         self.bucket_name = s3_bucket_name
 
@@ -90,5 +93,5 @@ def process_files(directory):
             continue
 
 
-path = "/home/tim/work/su-thesis-project/resources/videos/AAC_clips"
+path = "/home/tim/work/su-thesis-project/resources/videos/AAC_480p"
 process_files(path)

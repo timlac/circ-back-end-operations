@@ -1,13 +1,16 @@
 from random import shuffle
 
 import boto3
+import os
+from dotenv import load_dotenv
 
-from config import s3_bucket_name
-from service_handling.helpers import get_filename
-from service_handling.metadata.file_metadata import Metadata
+from helpers import get_filename
+from metadata.file_metadata import Metadata
 
 
 def get_bucket_contents():
+    load_dotenv()
+    s3_bucket_name = os.environ.get("S3_BUCKET_NAME")
     s3 = boto3.client("s3")
     bucket_name = s3_bucket_name
     bucket_objects = s3.list_objects(Bucket=bucket_name)["Contents"]

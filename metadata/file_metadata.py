@@ -1,6 +1,6 @@
 from config import emotion_abr_to_emotion_id, emotion_id_to_valence
-from service_handling.helpers import get_digits_only, name2list
-from service_handling.metadata.error_file_exception import ErrorFileException
+from helpers import get_digits_only, name2list
+from metadata.error_file_exception import ErrorFileException
 
 
 class Metadata(object):

@@ -1,9 +1,7 @@
-import pynamodb
-
 from service_handling.dynamo_handling.get_bucket_contents import get_bucket_contents
-from service_handling.metadata.file_metadata import Metadata
+from metadata.file_metadata import Metadata
 from service_handling.dynamo_handling.models.experiment_model import ExperimentModel
-from service_handling.helpers import get_filename
+from helpers import get_filename
 from service_handling.dynamo_handling.emotion_randomization import get_emotion_ids_by_valence, get_random_subset
 
 

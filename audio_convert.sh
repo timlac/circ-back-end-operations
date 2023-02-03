@@ -1,4 +1,4 @@
 #!/bin/bash
 
 mkdir -p converted
-for f in *.mp4; do ffmpeg -i $f -c:v copy -c:a aac -b:a 192k "converted/${f%.mp4}.mp4"; done
+for f in *.mov; do ffmpeg -i $f -s 1280x720 -c:v h264 -c:a aac -b:a 192k "converted/${f%.mov}.mp4"; done
