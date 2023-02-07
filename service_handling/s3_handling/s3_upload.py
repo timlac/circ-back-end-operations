@@ -6,12 +6,16 @@ import os
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 
-
+from config import ROOT_DIR
 from metadata.error_file_exception import ErrorFileException
 from metadata.file_metadata import Metadata
 from helpers import get_filename
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+log_file_path = os.path.join(ROOT_DIR, "files/logs/s3_upload.log")
+
+
+logging.basicConfig(filename=log_file_path, level=logging.INFO, filemode="w",
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def get_file_paths(path):
@@ -93,5 +97,5 @@ def process_files(directory):
             continue
 
 
-path = "/home/tim/work/su-thesis-project/resources/videos/AAC_480p"
+path = "/home/tim/work/su-thesis-project/video-validation-back-end/files/out"
 process_files(path)

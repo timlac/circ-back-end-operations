@@ -19,6 +19,8 @@ class Metadata(object):
     DEFAULT_EMOTION_ID = 100
     DEFAULT_VALENCE = None
 
+    DEFAULT_ERROR = 0
+
     def __init__(self,
                  filename):
 
@@ -42,6 +44,8 @@ class Metadata(object):
         self.situation = self.DEFAULT_SITUATION
         self.emotion_1_valence = self.DEFAULT_VALENCE
         self.emotion_2_valence = self.DEFAULT_VALENCE
+
+        self.error = self.DEFAULT_ERROR
 
         self.set_all_metadata(self.name_list)
 
@@ -107,7 +111,7 @@ class Metadata(object):
             self.set_neutral_emotion(name_list)
         elif len(name_list) > 4:
             if name_list[4] == special_cases["error"]:
-                raise ErrorFileException
+                raise ErrorFileException(self.filename)
             elif name_list[4].startswith("ver"):
                 self.set_versioned_emotion(name_list)
             else:
