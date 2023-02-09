@@ -196,6 +196,11 @@ video_files = [
      "prosody": "meli"},
 ]
 
+
+sex_dict = {d['video_id']: d['sex'] for d in video_files}
+prosody_dict = {d['video_id']: d['prosody'] for d in video_files}
+
+
 video_ids = [
     'A91',
     'A102',

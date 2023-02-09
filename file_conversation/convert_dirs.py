@@ -56,7 +56,8 @@ def main():
         if os.path.isfile(filepath):
             try:
                 metadata = Metadata(Path(filepath).stem)
-                if int(metadata.intensity_level) in intensity_levels:
+
+                if int(metadata.intensity_level) in intensity_levels or metadata.emotion_1_id == 22:
 
                     if metadata.video_id in video_ids:
                         # logging.info("processing file: {}".format(filepath))
