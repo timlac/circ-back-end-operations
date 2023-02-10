@@ -17,6 +17,8 @@ def handler(event, context):
         alias = event["queryStringParameters"]["alias"]
         processed_status = event["queryStringParameters"]["processed_status"]
 
+        print("GET request for item with alias: {}, and processed_status: {}".format(alias, processed_status))
+
         # Get the items from the table using the index
         response = table.query(
             IndexName="processed_index",

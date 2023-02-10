@@ -1,4 +1,4 @@
-from config import ROOT_DIR
+from config import ROOT_DIR, valences
 from service_handling.dynamo_handling.user_creation.plots import plot_emotion_distribution, plot_file_distribution, \
     plot_video_id_distribution
 from service_handling.dynamo_handling.user_creation.user_video_allocation import get_objects_as_metadata
@@ -28,7 +28,6 @@ def validate_emotion_subsets(user_pool):
 
 def find_missing(user_pool):
 
-    valences = ["pos", "neg"]
 
     for idx, user_type in enumerate(user_pool):
         print("Seeking missing files for {} emotions".format(valences[idx]))
@@ -51,8 +50,6 @@ def find_missing(user_pool):
 
 
 def draw_plots(user_pool):
-    valences = ["pos", "neg"]
-
     for idx, user_type in enumerate(user_pool):
         print("plotting analysis for users with {} emotions".format(valences[idx]))
         plot_emotion_distribution(user_type)

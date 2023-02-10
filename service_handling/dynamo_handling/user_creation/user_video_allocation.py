@@ -11,7 +11,7 @@ from helpers import get_filename
 from service_handling.dynamo_handling.emotion_randomization import get_emotion_ids_by_valence
 from service_handling.dynamo_handling.get_bucket_contents import list_all_objects_in_bucket
 from metadata.file_metadata import Metadata
-from config import video_ids
+from config import video_ids, valences
 from service_handling.dynamo_handling.user_creation.plots import plot_emotion_distribution, \
     plot_video_id_distribution
 from service_handling.dynamo_handling.user_creation.plots import plot_file_distribution
@@ -58,7 +58,7 @@ def get_objects_as_metadata(valence):
 def set_items():
     user_pool = []
 
-    for valence in ["pos", "neg"]:
+    for valence in valences:
 
         # e.g. positive or negative type
         user_type = []
@@ -68,6 +68,8 @@ def set_items():
 
         # 125 instances of each user_type
         for idx in range(125):
+            added_filenames = set()
+
             print(idx)
 
             user = []
@@ -82,20 +84,25 @@ def set_items():
 
             # add items to the user while emotion pool is not exhausted
             while emotion_pool:
-                if rejects > len(objects_metadata):
-                    video_pool = get_custom_replication(video_ids, total_length=len(video_pool))
-
                 item = random.choice(objects_metadata)
+
+                while item.filename in added_filenames:
+                    item = random.choice(objects_metadata)
+
                 if item.emotion_1_id in emotion_pool and item.video_id in video_pool:
 
                     user.append({"item": copy(item),
-                                  "emotions_id_subset": copy(emotions_subset)})
+                                 "emotions_id_subset": copy(emotions_subset)})
+
+                    added_filenames.add(copy(item.filename))
                     objects_metadata.remove(item)
                     emotion_pool.remove(item.emotion_1_id)
                     video_pool.remove(item.video_id)
 
                 else:
                     rejects += 1
+                    if rejects > len(objects_metadata):
+                        video_pool = get_custom_replication(video_ids, total_length=len(video_pool))
 
             user_type.append(user)
 

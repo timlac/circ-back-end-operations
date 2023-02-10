@@ -18,6 +18,11 @@ def handler(event, context):
         processed_status = body["processed_status"]
         emotion_id_reply = body["emotion_id_reply"]
 
+        print("PUT request for alias: {}, "
+              "with filename: {}, "
+              "and processed_status {} "
+              "and emotion_id_reply {}".format(alias, filename, processed_status, emotion_id_reply))
+
         # Update the item in the table
         table.update_item(
             Key={

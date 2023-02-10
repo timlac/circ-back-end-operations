@@ -16,6 +16,8 @@ def handler(event, context):
         # Get the partition key value from the event
         partition_key_value = event['queryStringParameters']['alias']
 
+        print("GET request for item {}".format(partition_key_value))
+
         # Query the table using the partition key
         response = table.query(
             KeyConditionExpression='alias = :alias_val',
