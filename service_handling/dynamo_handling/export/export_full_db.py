@@ -29,8 +29,10 @@ items = scan_table(table)
 items_json = json.dumps(items, default=to_serializable)
 df = pd.read_json(items_json)
 
-df = df[["alias", "valence", "set_number", "randomization_id"]]
+df.to_csv("full_export.csv", index=False)
 
-df2 = df.drop_duplicates(subset="alias", keep="first")
-df2.sort_values(by=["set_number", "randomization_id"], inplace=True)
-df2.to_csv("aliases.csv", index=False)
+# df = df[["alias", "valence", "set_number", "randomization_id"]]
+#
+# df2 = df.drop_duplicates(subset="alias", keep="first")
+# df2.sort_values(by=["set_number", "randomization_id"], inplace=True)
+# df2.to_csv("aliases.csv", index=False)

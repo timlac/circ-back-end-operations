@@ -28,3 +28,22 @@ def get_file_paths(path):
     csv_paths = glob(path + '*.csv')
     logging.info("Files found:" + str(len(csv_paths)))
     return csv_paths
+
+
+def slice_by(df, identifier):
+    """
+    :param df: dataframe with multiple rows with the same identifier
+    :param identifier: column name for identifier
+    :return: list of dataframes
+    """
+    ret = []
+    for _, group in df.groupby(identifier):
+        ret.append(group)
+    return ret
+
+
+def mapper(input_values, mapper_dict):
+    ret = []
+    for i in input_values:
+        ret.append(mapper_dict[str(i)])
+    return ret
