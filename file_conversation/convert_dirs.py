@@ -67,7 +67,7 @@ def main():
                                      .format(metadata.video_id))
 
                 else:
-                    logging.info("file {} does no have any of intensity levels {}, skipping..."
+                    logging.info("file {} does not have any of intensity levels {}, skipping..."
                                  .format(filepath,
                                          str(intensity_levels)))
             except ErrorFileException as e:
