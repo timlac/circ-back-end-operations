@@ -97,5 +97,5 @@ def process_files(directory):
             continue
 
 
-path = "/home/tim/work/su-thesis-project/video-validation-back-end/files/out"
+path = "//files/out"
 process_files(path)

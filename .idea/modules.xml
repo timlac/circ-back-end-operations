@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/video-validation-back-end.iml" filepath="$PROJECT_DIR$/.idea/video-validation-back-end.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/circ-back-end-operations.iml" filepath="$PROJECT_DIR$/.idea/circ-back-end-operations.iml" />
     </modules>
   </component>
 </project>

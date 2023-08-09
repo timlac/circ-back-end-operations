@@ -4,7 +4,7 @@ import os
 experiment_table_name = "video_validation_experiment"
 example_table_name = "example_videos"
 
-ROOT_DIR = "/home/tim/work/su-thesis-project/video-validation-back-end"
+ROOT_DIR = "/"
 
 valences = ["pos", "neg"]
 
