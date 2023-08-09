@@ -3,3 +3,25 @@
 files/
 
 notes
+
+
+# Ignore virtual environment
+venv/
+
+# Ignore other files and directories
+dist/
+build/
+__pycache__/
+*.egg-info/
+*.whl
+
+
+# Ignore PyCharm settings
+.idea/
+
+# Ignore PyCharm module files
+*.iml
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
